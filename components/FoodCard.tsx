@@ -20,17 +20,19 @@ export default function FoodCard({ food, entry, onToggle, onReaction }: FoodCard
 
   return (
     <div
-      className={`bg-white rounded-2xl p-4 shadow-sm border transition-all ${
-        isIntroduced ? 'border-menthe bg-menthe-light/30' : 'border-transparent'
+      className={`bg-white rounded-3xl p-5 transition-all duration-300 ${
+        isIntroduced
+          ? 'border-2 border-menthe shadow-sm shadow-menthe/20'
+          : 'border-2 border-transparent shadow-sm hover:shadow-md hover:border-blush'
       }`}
     >
       <div className="flex items-start gap-3">
         <button
           onClick={() => onToggle(food.id)}
-          className={`mt-0.5 w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all flex-shrink-0 ${
+          className={`mt-0.5 w-7 h-7 rounded-xl border-2 flex items-center justify-center transition-all duration-300 flex-shrink-0 ${
             isIntroduced
-              ? 'bg-menthe border-menthe text-white'
-              : 'border-brun-light hover:border-rose'
+              ? 'bg-menthe border-menthe-dark text-white shadow-sm shadow-menthe/30'
+              : 'border-gray-300 hover:border-menthe-dark'
           }`}
         >
           {isIntroduced && (
@@ -42,42 +44,47 @@ export default function FoodCard({ food, entry, onToggle, onReaction }: FoodCard
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-lg">{food.icon}</span>
-            <h3 className={`font-bold text-sm ${isIntroduced ? 'line-through text-brun-light' : 'text-brun'}`}>
+            <span className="text-xl">{food.icon}</span>
+            <h3 className={`font-extrabold text-sm ${isIntroduced ? 'line-through text-gris' : 'text-noir'}`}>
               {food.name}
             </h3>
-            <span className={`text-[10px] px-2 py-0.5 rounded-full font-medium ${CATEGORY_COLORS[food.category]}`}>
+          </div>
+
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            <span className={`text-[10px] px-2.5 py-1 rounded-full font-bold ${CATEGORY_COLORS[food.category]}`}>
               {food.category.replace('_', ' ')}
             </span>
           </div>
 
-          <p className="text-xs text-brun-light mt-1">
-            <span className="font-semibold">Texture :</span> {food.texture}
+          <p className="text-xs text-gris mt-2 leading-relaxed">
+            <span className="font-bold text-noir">Texture :</span> {food.texture}
           </p>
 
           {food.flavorTip && (
-            <p className="text-xs text-brun-light mt-0.5">
-              <span className="font-semibold">Astuce saveur :</span> {food.flavorTip}
+            <p className="text-xs text-gris mt-1 leading-relaxed">
+              <span className="font-bold text-noir">Saveur :</span> {food.flavorTip}
             </p>
           )}
 
           {food.specialNote && (
-            <p className="text-xs mt-1 px-2 py-1 bg-jaune-light rounded-lg text-yellow-800 font-medium">
-              💡 {food.specialNote}
-            </p>
+            <div className="mt-2 px-3 py-2 bg-jaune-light rounded-2xl">
+              <p className="text-xs font-bold text-noir">
+                💡 {food.specialNote}
+              </p>
+            </div>
           )}
 
           {isIntroduced && (
-            <div className="flex gap-2 mt-2">
-              <span className="text-[10px] text-brun-light font-medium self-center">Réaction :</span>
+            <div className="flex items-center gap-3 mt-3 pt-3 border-t border-gris-light">
+              <span className="text-[10px] text-gris font-bold uppercase tracking-wider">Verdict</span>
               {(Object.entries(reactionEmojis) as [Reaction, string][]).map(([reaction, emoji]) => (
                 <button
                   key={reaction}
                   onClick={() => onReaction(food.id, reaction)}
-                  className={`text-lg transition-all ${
+                  className={`text-xl transition-all duration-200 ${
                     entry?.reaction === reaction
-                      ? 'scale-125'
-                      : 'opacity-40 hover:opacity-70'
+                      ? 'scale-125 drop-shadow-sm'
+                      : 'opacity-30 hover:opacity-60 hover:scale-110'
                   }`}
                 >
                   {emoji}

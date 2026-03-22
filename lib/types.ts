@@ -59,12 +59,12 @@ export const CATEGORY_LABELS: Record<FoodCategory, string> = {
 };
 
 export const CATEGORY_COLORS: Record<FoodCategory, string> = {
-  legume: 'bg-menthe-light text-emerald-800',
-  fruit: 'bg-rose-light text-pink-800',
-  proteine: 'bg-amber-100 text-amber-800',
-  feculent: 'bg-jaune-light text-yellow-800',
-  matiere_grasse: 'bg-orange-100 text-orange-800',
-  epice: 'bg-purple-100 text-purple-800',
-  allergene: 'bg-red-100 text-red-800',
-  laitage: 'bg-blue-100 text-blue-800',
+  legume: 'bg-menthe-light text-noir',
+  fruit: 'bg-blush text-noir',
+  proteine: 'bg-jaune-light text-noir',
+  feculent: 'bg-bleu-light text-noir',
+  matiere_grasse: 'bg-jaune text-noir',
+  epice: 'bg-menthe text-noir',
+  allergene: 'bg-blush text-noir',
+  laitage: 'bg-bleu-light text-noir',
 };

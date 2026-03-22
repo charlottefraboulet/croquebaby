@@ -9,14 +9,14 @@ export default function ProgressBar({ label, current, total, color = 'bg-menthe'
   const percentage = total === 0 ? 0 : Math.round((current / total) * 100);
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-1.5">
       <div className="flex justify-between items-center">
-        <span className="text-xs font-semibold text-brun">{label}</span>
-        <span className="text-xs text-brun-light">{current}/{total}</span>
+        <span className="text-xs font-bold text-noir">{label}</span>
+        <span className="text-xs font-extrabold text-gris">{current}/{total}</span>
       </div>
-      <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-3 bg-gris-light rounded-full overflow-hidden">
         <div
-          className={`h-full rounded-full transition-all duration-500 ${color}`}
+          className={`h-full rounded-full transition-all duration-700 ease-out ${color}`}
           style={{ width: `${percentage}%` }}
         />
       </div>

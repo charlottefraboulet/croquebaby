@@ -3,19 +3,19 @@
 import { useFoodEntries } from '@/hooks/useLocalStorage';
 import { foods } from '@/data/foods';
 import ProgressBar from '@/components/ProgressBar';
+import WaveSeparator from '@/components/WaveSeparator';
 import { CATEGORY_LABELS, FoodCategory } from '@/lib/types';
 
 const AGE_STAGES = [
-  { age: 6, label: '6 mois', color: 'bg-rose' },
-  { age: 7, label: '7 mois', color: 'bg-menthe' },
+  { age: 6, label: '6 mois', color: 'bg-menthe' },
+  { age: 7, label: '7 mois', color: 'bg-blush' },
   { age: 8, label: '8-9 mois', color: 'bg-jaune' },
-  { age: 10, label: '10-12 mois', color: 'bg-purple-400' },
+  { age: 10, label: '10-12 mois', color: 'bg-rose' },
 ];
 
 export default function ProgressionPage() {
   const { entries } = useFoodEntries();
 
-  const totalFoods = foods.length;
   const introducedFoods = foods.filter(f => entries[f.id]?.introduced);
   const lovedFoods = introducedFoods.filter(f => entries[f.id]?.reaction === 'loved');
   const refusedFoods = introducedFoods.filter(f => entries[f.id]?.reaction === 'refused');
@@ -23,31 +23,34 @@ export default function ProgressionPage() {
   const categories = [...new Set(foods.map(f => f.category))] as FoodCategory[];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-black text-brun">Progression</h1>
-        <p className="text-sm text-brun-light">Vue d&apos;ensemble de la diversification</p>
+        <p className="text-[10px] font-extrabold uppercase tracking-widest text-gris">Tableau de bord</p>
+        <h1 className="text-3xl font-black text-noir mt-1">Progression</h1>
+        <p className="text-sm text-gris font-medium mt-1">
+          <span className="font-serif italic">Vue d&apos;ensemble de la diversification</span>
+        </p>
       </div>
 
       {/* Stats globales */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="bg-menthe-light rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-emerald-800">{introducedFoods.length}</p>
-          <p className="text-[10px] text-emerald-700 font-medium">Introduits</p>
+        <div className="bg-menthe-light rounded-3xl p-4 text-center">
+          <p className="text-3xl font-black text-noir">{introducedFoods.length}</p>
+          <p className="text-[10px] text-gris font-bold mt-1 uppercase tracking-wider">Introduits</p>
         </div>
-        <div className="bg-rose-light rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-pink-800">{lovedFoods.length}</p>
-          <p className="text-[10px] text-pink-700 font-medium">Adorés 😍</p>
+        <div className="bg-blush-light rounded-3xl p-4 text-center">
+          <p className="text-3xl font-black text-noir">{lovedFoods.length}</p>
+          <p className="text-[10px] text-gris font-bold mt-1 uppercase tracking-wider">Adorés 😍</p>
         </div>
-        <div className="bg-orange-100 rounded-2xl p-3 text-center">
-          <p className="text-2xl font-black text-orange-800">{refusedFoods.length}</p>
-          <p className="text-[10px] text-orange-700 font-medium">Refusés 😣</p>
+        <div className="bg-jaune-light rounded-3xl p-4 text-center">
+          <p className="text-3xl font-black text-noir">{refusedFoods.length}</p>
+          <p className="text-[10px] text-gris font-bold mt-1 uppercase tracking-wider">Refusés 😣</p>
         </div>
       </div>
 
-      {/* Progression par âge */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
-        <h2 className="font-bold text-brun text-sm">Par tranche d&apos;âge</h2>
+      {/* Par âge */}
+      <div className="bg-white rounded-3xl p-6 shadow-sm space-y-4">
+        <h2 className="font-extrabold text-noir">Par tranche d&apos;âge</h2>
         {AGE_STAGES.map(stage => {
           const stageFoods = foods.filter(f => f.ageMonth === stage.age);
           const stageIntroduced = stageFoods.filter(f => entries[f.id]?.introduced).length;
@@ -63,9 +66,9 @@ export default function ProgressionPage() {
         })}
       </div>
 
-      {/* Progression par catégorie */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
-        <h2 className="font-bold text-brun text-sm">Par catégorie</h2>
+      {/* Par catégorie */}
+      <div className="bg-white rounded-3xl p-6 shadow-sm space-y-4">
+        <h2 className="font-extrabold text-noir">Par catégorie</h2>
         {categories.map(cat => {
           const catFoods = foods.filter(f => f.category === cat);
           const catIntroduced = catFoods.filter(f => entries[f.id]?.introduced).length;
@@ -81,15 +84,17 @@ export default function ProgressionPage() {
         })}
       </div>
 
-      {/* Aliments adorés */}
+      <WaveSeparator color="#E9F6F0" />
+
+      {/* Adorés */}
       {lovedFoods.length > 0 && (
-        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-2">
-          <h2 className="font-bold text-brun text-sm flex items-center gap-2">
-            <span>😍</span> Bébé adore
+        <div className="bg-white rounded-3xl p-6 shadow-sm space-y-3">
+          <h2 className="font-extrabold text-noir flex items-center gap-2">
+            😍 <span className="font-serif italic font-normal">Bébé adore</span>
           </h2>
           <div className="flex flex-wrap gap-2">
             {lovedFoods.map(f => (
-              <span key={f.id} className="text-xs px-3 py-1.5 bg-rose-light rounded-full text-pink-800 font-medium">
+              <span key={f.id} className="text-xs px-3 py-2 bg-blush rounded-full font-bold text-noir">
                 {f.icon} {f.name}
               </span>
             ))}
@@ -97,18 +102,18 @@ export default function ProgressionPage() {
         </div>
       )}
 
-      {/* Aliments refusés */}
+      {/* Refusés */}
       {refusedFoods.length > 0 && (
-        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-2">
-          <h2 className="font-bold text-brun text-sm flex items-center gap-2">
-            <span>😣</span> À reproposer plus tard
+        <div className="bg-white rounded-3xl p-6 shadow-sm space-y-3">
+          <h2 className="font-extrabold text-noir flex items-center gap-2">
+            😣 <span className="font-serif italic font-normal">À reproposer</span>
           </h2>
-          <p className="text-[10px] text-brun-light">
-            Ne pas se décourager ! Il faut parfois 10-15 présentations avant qu&apos;un aliment soit accepté (Dr Macheto).
+          <p className="text-xs text-gris leading-relaxed">
+            Pas de panique ! Il faut parfois 10 à 15 présentations avant qu&apos;un aliment soit accepté.
           </p>
           <div className="flex flex-wrap gap-2">
             {refusedFoods.map(f => (
-              <span key={f.id} className="text-xs px-3 py-1.5 bg-orange-100 rounded-full text-orange-800 font-medium">
+              <span key={f.id} className="text-xs px-3 py-2 bg-jaune-light rounded-full font-bold text-noir">
                 {f.icon} {f.name}
               </span>
             ))}
@@ -116,13 +121,13 @@ export default function ProgressionPage() {
         </div>
       )}
 
-      {/* Timeline des introductions */}
+      {/* Historique */}
       {introducedFoods.length > 0 && (
-        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-2">
-          <h2 className="font-bold text-brun text-sm flex items-center gap-2">
-            <span>📅</span> Historique
+        <div className="bg-white rounded-3xl p-6 shadow-sm space-y-3">
+          <h2 className="font-extrabold text-noir flex items-center gap-2">
+            📅 <span className="font-serif italic font-normal">Historique</span>
           </h2>
-          <div className="space-y-1">
+          <div className="space-y-0">
             {introducedFoods
               .sort((a, b) => {
                 const dateA = entries[a.id]?.date || '';
@@ -130,15 +135,15 @@ export default function ProgressionPage() {
                 return dateB.localeCompare(dateA);
               })
               .map(f => (
-                <div key={f.id} className="flex items-center gap-2 text-xs py-1 border-b border-gray-50 last:border-0">
-                  <span>{f.icon}</span>
-                  <span className="font-medium text-brun flex-1">{f.name}</span>
+                <div key={f.id} className="flex items-center gap-3 text-xs py-2.5 border-b border-gris-light last:border-0">
+                  <span className="text-base">{f.icon}</span>
+                  <span className="font-bold text-noir flex-1">{f.name}</span>
                   {entries[f.id]?.reaction && (
-                    <span>
+                    <span className="text-base">
                       {entries[f.id].reaction === 'loved' ? '😍' : entries[f.id].reaction === 'refused' ? '😣' : '😐'}
                     </span>
                   )}
-                  <span className="text-brun-light">{entries[f.id]?.date || ''}</span>
+                  <span className="text-gris font-medium">{entries[f.id]?.date || ''}</span>
                 </div>
               ))}
           </div>
@@ -146,9 +151,9 @@ export default function ProgressionPage() {
       )}
 
       {introducedFoods.length === 0 && (
-        <div className="text-center py-8 text-brun-light">
-          <p className="text-4xl mb-2">🌱</p>
-          <p className="text-sm">Commence par cocher des aliments dans la Checklist !</p>
+        <div className="text-center py-12 text-gris">
+          <p className="text-5xl mb-3">🌱</p>
+          <p className="text-sm font-medium">Commence par cocher des aliments dans la Checklist !</p>
         </div>
       )}
     </div>

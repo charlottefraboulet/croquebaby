@@ -1,9 +1,18 @@
 import type { Metadata } from 'next';
-import { Nunito } from 'next/font/google';
+import { Nunito, Playfair_Display } from 'next/font/google';
 import Navigation from '@/components/Navigation';
 import './globals.css';
 
-const nunito = Nunito({ subsets: ['latin'] });
+const nunito = Nunito({
+  subsets: ['latin'],
+  variable: '--font-nunito',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  style: ['normal', 'italic'],
+});
 
 export const metadata: Metadata = {
   title: 'CroqueBaby — Diversification alimentaire',
@@ -13,8 +22,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr">
-      <body className={nunito.className}>
-        <main className="max-w-lg mx-auto px-4 pt-6 pb-24 min-h-screen">
+      <body className={`${nunito.variable} ${playfair.variable} font-sans`}>
+        <main className="max-w-lg mx-auto px-5 pt-8 pb-28 min-h-screen">
           {children}
         </main>
         <Navigation />

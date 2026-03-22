@@ -6,44 +6,47 @@ interface RecipeCardProps {
 
 export default function RecipeCard({ recipe }: RecipeCardProps) {
   return (
-    <div className="bg-white rounded-2xl p-4 shadow-sm border border-transparent hover:border-rose-light transition-all">
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-2xl">{recipe.icon}</span>
+    <div className="bg-white rounded-3xl p-5 shadow-sm border-2 border-transparent hover:border-blush transition-all duration-300 hover:shadow-md">
+      <div className="flex items-center gap-3 mb-3">
+        <span className="text-3xl">{recipe.icon}</span>
         <div>
-          <h3 className="font-bold text-sm text-brun">{recipe.name}</h3>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-rose-light text-pink-800 font-medium">
+          <h3 className="font-extrabold text-sm text-noir leading-tight">{recipe.name}</h3>
+          <span className="inline-block mt-1 text-[10px] px-2.5 py-1 rounded-full bg-blush font-bold text-noir">
             Dès {recipe.ageMonth} mois
           </span>
         </div>
       </div>
 
-      <div className="space-y-2 mt-3">
+      <div className="space-y-3">
         <div>
-          <p className="text-[10px] font-bold text-brun uppercase tracking-wide">Ingrédients</p>
-          <ul className="text-xs text-brun-light mt-0.5">
+          <p className="text-[10px] font-extrabold text-gris uppercase tracking-widest mb-1">Ingrédients</p>
+          <ul className="space-y-0.5">
             {recipe.ingredients.map((ing, i) => (
-              <li key={i} className="flex items-center gap-1">
-                <span className="text-rose">•</span> {ing}
+              <li key={i} className="text-xs text-noir flex items-start gap-2">
+                <span className="text-menthe-dark font-black">•</span>
+                <span>{ing}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <div>
-          <p className="text-[10px] font-bold text-brun uppercase tracking-wide">Préparation</p>
-          <p className="text-xs text-brun-light mt-0.5">{recipe.instructions}</p>
+          <p className="text-[10px] font-extrabold text-gris uppercase tracking-widest mb-1">Préparation</p>
+          <p className="text-xs text-gris leading-relaxed">{recipe.instructions}</p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs">
-          <span className="px-2 py-0.5 bg-menthe-light rounded-full text-emerald-800 font-medium">
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] px-3 py-1 bg-menthe-light rounded-full font-bold text-noir">
             {recipe.texture}
           </span>
         </div>
 
         {recipe.flavorTip && (
-          <p className="text-xs px-2 py-1.5 bg-jaune-light rounded-lg text-yellow-800 font-medium">
-            ✨ {recipe.flavorTip}
-          </p>
+          <div className="px-3 py-2.5 bg-jaune-light rounded-2xl">
+            <p className="text-xs font-bold text-noir">
+              ✨ {recipe.flavorTip}
+            </p>
+          </div>
         )}
       </div>
     </div>

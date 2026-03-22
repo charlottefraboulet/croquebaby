@@ -5,6 +5,7 @@ import { useFoodEntries } from '@/hooks/useLocalStorage';
 import { foods } from '@/data/foods';
 import { sarahMachetoTips } from '@/data/textures';
 import ProgressBar from '@/components/ProgressBar';
+import WaveSeparator from '@/components/WaveSeparator';
 import { CATEGORY_LABELS, FoodCategory } from '@/lib/types';
 
 const AGE_STAGES = [
@@ -23,100 +24,122 @@ export default function HomePage() {
   const categories = [...new Set(foods.map(f => f.category))];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="text-center space-y-1">
-        <h1 className="text-3xl font-black text-brun">CroqueBaby</h1>
-        <p className="text-sm text-brun-light">La diversification en douceur, de 6 à 12 mois</p>
+    <div className="space-y-8">
+      {/* Hero Header */}
+      <div className="text-center space-y-3 pt-4">
+        <div className="inline-block px-4 py-1 bg-menthe-light rounded-full">
+          <span className="text-[10px] font-extrabold uppercase tracking-widest text-noir">De 6 à 12 mois</span>
+        </div>
+        <h1 className="text-4xl font-black text-noir tracking-tight">CroqueBaby</h1>
+        <p className="text-sm text-gris font-medium">
+          <span className="font-serif italic">La diversification en douceur</span>
+        </p>
       </div>
 
       {/* Progression globale */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
-        <h2 className="font-bold text-brun flex items-center gap-2">
-          <span>📊</span> Progression globale
-        </h2>
+      <div className="bg-white rounded-3xl p-6 shadow-sm space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="font-extrabold text-noir">Progression</h2>
+          <span className="text-xs px-3 py-1 bg-menthe rounded-full font-extrabold text-noir">
+            {Math.round((introducedCount / totalFoods) * 100)}%
+          </span>
+        </div>
         <ProgressBar
-          label={`${introducedCount} aliments introduits sur ${totalFoods}`}
+          label={`${introducedCount} aliments sur ${totalFoods}`}
           current={introducedCount}
           total={totalFoods}
         />
-        <div className="grid grid-cols-2 gap-2 mt-2">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 pt-1">
           {categories.map(cat => {
             const catFoods = foods.filter(f => f.category === cat);
             const catIntroduced = catFoods.filter(f => entries[f.id]?.introduced).length;
             return (
-              <div key={cat} className="text-xs text-brun-light">
-                <span className="font-medium">{CATEGORY_LABELS[cat as FoodCategory]}</span>
-                <span className="ml-1 text-brun">{catIntroduced}/{catFoods.length}</span>
+              <div key={cat} className="flex justify-between text-xs">
+                <span className="text-gris">{CATEGORY_LABELS[cat as FoodCategory]}</span>
+                <span className="font-bold text-noir">{catIntroduced}/{catFoods.length}</span>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Accès rapide */}
-      <div className="grid grid-cols-2 gap-3">
+      {/* Accès rapide — style Carryboo cards */}
+      <div className="grid grid-cols-2 gap-4">
         <Link
           href="/checklist"
-          className="bg-rose-light rounded-2xl p-4 text-center hover:shadow-md transition-all"
+          className="bg-menthe-light rounded-3xl p-5 text-center hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
         >
-          <span className="text-3xl block mb-1">✅</span>
-          <span className="text-sm font-bold text-pink-800">Checklist</span>
-          <p className="text-[10px] text-pink-700 mt-0.5">Aliments à introduire</p>
+          <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform duration-300">✅</span>
+          <span className="text-sm font-extrabold text-noir block">Checklist</span>
+          <p className="text-[10px] text-gris font-medium mt-1">Aliments à introduire</p>
         </Link>
         <Link
           href="/recettes"
-          className="bg-menthe-light rounded-2xl p-4 text-center hover:shadow-md transition-all"
+          className="bg-blush-light rounded-3xl p-5 text-center hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
         >
-          <span className="text-3xl block mb-1">👩‍🍳</span>
-          <span className="text-sm font-bold text-emerald-800">Recettes</span>
-          <p className="text-[10px] text-emerald-700 mt-0.5">Idées de combinaisons</p>
+          <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform duration-300">👩‍🍳</span>
+          <span className="text-sm font-extrabold text-noir block">Recettes</span>
+          <p className="text-[10px] text-gris font-medium mt-1">Idées de combinaisons</p>
         </Link>
         <Link
           href="/textures"
-          className="bg-jaune-light rounded-2xl p-4 text-center hover:shadow-md transition-all"
+          className="bg-jaune-light rounded-3xl p-5 text-center hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
         >
-          <span className="text-3xl block mb-1">🥄</span>
-          <span className="text-sm font-bold text-yellow-800">Textures</span>
-          <p className="text-[10px] text-yellow-700 mt-0.5">Guide par âge</p>
+          <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform duration-300">🥄</span>
+          <span className="text-sm font-extrabold text-noir block">Textures</span>
+          <p className="text-[10px] text-gris font-medium mt-1">Guide par âge</p>
         </Link>
         <Link
           href="/progression"
-          className="bg-purple-100 rounded-2xl p-4 text-center hover:shadow-md transition-all"
+          className="bg-bleu-light rounded-3xl p-5 text-center hover:shadow-lg transition-all duration-300 hover:scale-[1.02] group"
         >
-          <span className="text-3xl block mb-1">📈</span>
-          <span className="text-sm font-bold text-purple-800">Progrès</span>
-          <p className="text-[10px] text-purple-700 mt-0.5">Vue d&apos;ensemble</p>
+          <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform duration-300">📈</span>
+          <span className="text-sm font-extrabold text-noir block">Progrès</span>
+          <p className="text-[10px] text-gris font-medium mt-1">Vue d&apos;ensemble</p>
         </Link>
       </div>
 
-      {/* Conseil du Dr Macheto */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3">
-        <h2 className="font-bold text-brun flex items-center gap-2">
-          <span>👩‍⚕️</span> Conseils du Dr Macheto
-        </h2>
-        <div className="space-y-2">
+      <WaveSeparator color="#E9F6F0" />
+
+      {/* Conseils Dr Macheto — style Joone épuré */}
+      <div className="space-y-4">
+        <div className="text-center">
+          <p className="text-[10px] font-extrabold uppercase tracking-widest text-gris">Recommandations</p>
+          <h2 className="text-xl font-black text-noir mt-1">
+            Conseils du <span className="font-serif italic font-normal">Dr Macheto</span>
+          </h2>
+        </div>
+        <div className="space-y-3">
           {sarahMachetoTips.slice(0, 3).map((tip, i) => (
-            <div key={i} className="flex gap-2 items-start">
-              <span className="text-lg flex-shrink-0">{tip.icon}</span>
-              <div>
-                <p className="text-xs font-bold text-brun">{tip.title}</p>
-                <p className="text-[10px] text-brun-light leading-relaxed">{tip.content}</p>
+            <div key={i} className="bg-white rounded-3xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+              <div className="flex gap-3 items-start">
+                <span className="text-2xl flex-shrink-0">{tip.icon}</span>
+                <div>
+                  <p className="text-sm font-extrabold text-noir">{tip.title}</p>
+                  <p className="text-xs text-gris mt-1 leading-relaxed">{tip.content}</p>
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <Link href="/textures" className="text-xs text-rose font-semibold hover:underline block text-center mt-2">
-          Voir tous les conseils →
+        <Link href="/textures" className="block text-center">
+          <span className="inline-block px-5 py-2.5 bg-menthe rounded-full text-sm font-extrabold text-noir hover:shadow-md hover:shadow-menthe/30 transition-all duration-300">
+            Voir tous les conseils →
+          </span>
         </Link>
       </div>
 
-      {/* Prochaines étapes */}
-      <div className="bg-white rounded-2xl p-4 shadow-sm">
-        <h2 className="font-bold text-brun flex items-center gap-2 mb-3">
-          <span>🎯</span> Par où commencer ?
-        </h2>
-        <div className="space-y-2">
+      <WaveSeparator color="#FDF0EC" />
+
+      {/* Étapes par âge */}
+      <div className="space-y-4">
+        <div className="text-center">
+          <p className="text-[10px] font-extrabold uppercase tracking-widest text-gris">Parcours</p>
+          <h2 className="text-xl font-black text-noir mt-1">
+            Par où <span className="font-serif italic font-normal">commencer ?</span>
+          </h2>
+        </div>
+        <div className="bg-white rounded-3xl p-5 shadow-sm space-y-1">
           {AGE_STAGES.map(stage => {
             const stageFoods = foods.filter(f => f.ageMonth === stage.age);
             const stageIntroduced = stageFoods.filter(f => entries[f.id]?.introduced).length;
@@ -125,17 +148,17 @@ export default function HomePage() {
               <Link
                 key={stage.age}
                 href={`/checklist?age=${stage.age}`}
-                className={`flex items-center gap-3 p-2 rounded-xl transition-all ${
-                  isDone ? 'bg-menthe-light/50' : 'hover:bg-rose-light/30'
+                className={`flex items-center gap-4 p-3 rounded-2xl transition-all duration-300 ${
+                  isDone ? 'bg-menthe-light' : 'hover:bg-gris-light'
                 }`}
               >
-                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                  isDone ? 'bg-menthe text-white' : 'bg-rose-light text-pink-800'
+                <span className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-black ${
+                  isDone ? 'bg-menthe text-noir' : 'bg-blush text-noir'
                 }`}>
                   {isDone ? '✓' : stage.age}
                 </span>
-                <span className="text-sm font-medium text-brun flex-1">{stage.label}</span>
-                <span className="text-xs text-brun-light">{stageIntroduced}/{stageFoods.length}</span>
+                <span className="text-sm font-bold text-noir flex-1">{stage.label}</span>
+                <span className="text-xs font-extrabold text-gris">{stageIntroduced}/{stageFoods.length}</span>
               </Link>
             );
           })}

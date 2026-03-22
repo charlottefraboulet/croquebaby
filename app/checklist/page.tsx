@@ -21,19 +21,22 @@ function ChecklistContent() {
   const introducedCount = ageFoods.filter(f => entries[f.id]?.introduced).length;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-black text-brun">Checklist</h1>
-        <p className="text-sm text-brun-light">Aliments à introduire par tranche d&apos;âge</p>
+        <p className="text-[10px] font-extrabold uppercase tracking-widest text-gris">Diversification</p>
+        <h1 className="text-3xl font-black text-noir mt-1">Checklist</h1>
+        <p className="text-sm text-gris font-medium mt-1">
+          <span className="font-serif italic">Aliments à introduire par tranche d&apos;âge</span>
+        </p>
       </div>
 
       <WeekSelector selectedAge={selectedAge} onAgeChange={setSelectedAge} />
 
-      <div className="bg-white rounded-2xl p-3 shadow-sm flex items-center justify-between">
-        <span className="text-sm font-medium text-brun">
+      <div className="bg-white rounded-3xl p-4 shadow-sm flex items-center justify-between">
+        <span className="text-sm font-bold text-noir">
           {selectedAge === 8 ? '8-9' : selectedAge === 10 ? '10-12' : selectedAge} mois
         </span>
-        <span className="text-xs px-3 py-1 rounded-full bg-menthe-light text-emerald-800 font-semibold">
+        <span className="text-xs px-4 py-1.5 rounded-full bg-menthe font-extrabold text-noir">
           {introducedCount}/{ageFoods.length} introduits
         </span>
       </div>
@@ -41,14 +44,16 @@ function ChecklistContent() {
       {categories.map(category => {
         const categoryFoods = ageFoods.filter(f => f.category === category);
         return (
-          <div key={category} className="space-y-2">
-            <h2 className="text-sm font-bold text-brun flex items-center gap-2 px-1">
-              {CATEGORY_LABELS[category as FoodCategory]}
-              <span className="text-[10px] font-normal text-brun-light">
-                ({categoryFoods.filter(f => entries[f.id]?.introduced).length}/{categoryFoods.length})
+          <div key={category} className="space-y-3">
+            <div className="flex items-center gap-2 px-1">
+              <h2 className="text-sm font-extrabold text-noir">
+                {CATEGORY_LABELS[category as FoodCategory]}
+              </h2>
+              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-gris-light font-bold text-gris">
+                {categoryFoods.filter(f => entries[f.id]?.introduced).length}/{categoryFoods.length}
               </span>
-            </h2>
-            <div className="space-y-2">
+            </div>
+            <div className="space-y-3">
               {categoryFoods.map(food => (
                 <FoodCard
                   key={food.id}
@@ -64,9 +69,9 @@ function ChecklistContent() {
       })}
 
       {ageFoods.length === 0 && (
-        <div className="text-center py-8 text-brun-light">
-          <p className="text-4xl mb-2">🤷</p>
-          <p className="text-sm">Aucun nouvel aliment pour cet âge</p>
+        <div className="text-center py-12 text-gris">
+          <p className="text-5xl mb-3">🤷</p>
+          <p className="text-sm font-medium">Aucun nouvel aliment pour cet âge</p>
         </div>
       )}
     </div>
@@ -75,7 +80,7 @@ function ChecklistContent() {
 
 export default function ChecklistPage() {
   return (
-    <Suspense fallback={<div className="text-center py-8 text-brun-light">Chargement...</div>}>
+    <Suspense fallback={<div className="text-center py-12 text-gris text-sm">Chargement...</div>}>
       <ChecklistContent />
     </Suspense>
   );

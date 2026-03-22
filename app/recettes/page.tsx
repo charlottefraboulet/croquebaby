@@ -12,10 +12,13 @@ export default function RecettesPage() {
   const recipes = showAll ? getRecipesByAge(selectedAge) : getNewRecipesForAge(selectedAge);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div>
-        <h1 className="text-2xl font-black text-brun">Recettes</h1>
-        <p className="text-sm text-brun-light">Idées de combinaisons et astuces saveurs</p>
+        <p className="text-[10px] font-extrabold uppercase tracking-widest text-gris">Inspiration</p>
+        <h1 className="text-3xl font-black text-noir mt-1">Recettes</h1>
+        <p className="text-sm text-gris font-medium mt-1">
+          <span className="font-serif italic">Combinaisons & astuces saveurs</span>
+        </p>
       </div>
 
       <WeekSelector selectedAge={selectedAge} onAgeChange={setSelectedAge} />
@@ -23,37 +26,41 @@ export default function RecettesPage() {
       <div className="flex gap-2">
         <button
           onClick={() => setShowAll(false)}
-          className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-            !showAll ? 'bg-rose text-white' : 'bg-white text-brun border border-rose-light'
+          className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all duration-300 ${
+            !showAll
+              ? 'bg-menthe text-noir shadow-sm shadow-menthe/30'
+              : 'bg-white text-gris border-2 border-gris-light hover:border-menthe'
           }`}
         >
           Nouvelles recettes
         </button>
         <button
           onClick={() => setShowAll(true)}
-          className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-            showAll ? 'bg-rose text-white' : 'bg-white text-brun border border-rose-light'
+          className={`px-4 py-2 rounded-full text-xs font-extrabold transition-all duration-300 ${
+            showAll
+              ? 'bg-menthe text-noir shadow-sm shadow-menthe/30'
+              : 'bg-white text-gris border-2 border-gris-light hover:border-menthe'
           }`}
         >
           Toutes les recettes
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {recipes.map(recipe => (
           <RecipeCard key={recipe.id} recipe={recipe} />
         ))}
       </div>
 
       {recipes.length === 0 && (
-        <div className="text-center py-8 text-brun-light">
-          <p className="text-4xl mb-2">👩‍🍳</p>
-          <p className="text-sm">Pas de nouvelles recettes pour cet âge</p>
+        <div className="text-center py-12 text-gris">
+          <p className="text-5xl mb-3">👩‍🍳</p>
+          <p className="text-sm font-medium">Pas de nouvelles recettes pour cet âge</p>
           <button
             onClick={() => setShowAll(true)}
-            className="text-xs text-rose font-semibold mt-2 hover:underline"
+            className="mt-3 px-5 py-2.5 bg-blush rounded-full text-xs font-extrabold text-noir hover:shadow-md transition-all duration-300"
           >
-            Voir toutes les recettes disponibles →
+            Voir toutes les recettes →
           </button>
         </div>
       )}

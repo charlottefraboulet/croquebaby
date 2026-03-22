@@ -1,22 +1,62 @@
 @import "tailwindcss";
 
 @theme {
-  --color-cream: #FFF8F0;
-  --color-rose: #F4A7BB;
-  --color-rose-light: #FADCE5;
-  --color-menthe: #A8D8B9;
-  --color-menthe-light: #D4EDE0;
+  /* Palette inspirée Carryboo + Joone */
+  --color-cream: #FEFCF9;
+  --color-blush: #FAE1D8;
+  --color-blush-light: #FDF0EC;
+  --color-menthe: #BEEAD2;
+  --color-menthe-light: #E9F6F0;
+  --color-menthe-dark: #7BCDA0;
+  --color-bleu: #00358E;
+  --color-bleu-light: #E8EEF7;
   --color-jaune: #F9D77E;
-  --color-jaune-light: #FDE9B0;
-  --color-brun: #5A4E4E;
-  --color-brun-light: #8A7D7D;
+  --color-jaune-light: #FFF6E0;
+  --color-rose: #F4A7BB;
+  --color-rose-light: #FDECF1;
+  --color-noir: #1A1A2E;
+  --color-gris: #6B7280;
+  --color-gris-light: #F3F4F6;
   --font-sans: 'Nunito', sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
 }
 
 @layer base {
   body {
     background-color: var(--color-cream);
-    color: var(--color-brun);
+    color: var(--color-noir);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
+
+  h1, h2, h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* Wave separator */
+.wave-separator {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.wave-separator svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for selectors */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

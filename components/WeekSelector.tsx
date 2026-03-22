@@ -14,15 +14,15 @@ interface WeekSelectorProps {
 
 export default function WeekSelector({ selectedAge, onAgeChange }: WeekSelectorProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2 px-1 scrollbar-hide">
+    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
       {AGE_OPTIONS.map(option => (
         <button
           key={option.value}
           onClick={() => onAgeChange(option.value)}
-          className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all ${
+          className={`px-5 py-2.5 rounded-full text-sm font-extrabold whitespace-nowrap transition-all duration-300 ${
             selectedAge === option.value
-              ? 'bg-rose text-white shadow-md scale-105'
-              : 'bg-white text-brun border border-rose-light hover:bg-rose-light'
+              ? 'bg-menthe text-noir shadow-md shadow-menthe/30 scale-105'
+              : 'bg-white text-gris border-2 border-gris-light hover:border-menthe hover:text-noir'
           }`}
         >
           {option.label}
