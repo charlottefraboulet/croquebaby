@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #FFF8F0;
+  --color-rose: #F4A7BB;
+  --color-rose-light: #FADCE5;
+  --color-menthe: #A8D8B9;
+  --color-menthe-light: #D4EDE0;
+  --color-jaune: #F9D77E;
+  --color-jaune-light: #FDE9B0;
+  --color-brun: #5A4E4E;
+  --color-brun-light: #8A7D7D;
+  --font-sans: 'Nunito', sans-serif;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-brun);
+    font-family: var(--font-sans);
+  }
+}
